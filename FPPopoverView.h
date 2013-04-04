@@ -36,6 +36,7 @@ typedef enum FPPopoverArrowDirection: NSUInteger {
 typedef enum {
     FPPopoverWhiteTint,
     FPPopoverBlackTint,
+    FPPopoverFlatBlackTint,
     FPPopoverLightGrayTint,
     FPPopoverGreenTint,
     FPPopoverRedTint,

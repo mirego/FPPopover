@@ -286,7 +286,21 @@
             colors[3] = colors[7] = 1.0;
         }        
     }
-    
+    else if(self.tint == FPPopoverFlatBlackTint)
+    {
+        if(_arrowDirection == FPPopoverArrowDirectionUp)
+        {
+            colors[0] = colors[1] = colors[2] = 0.1;
+            colors[4] = colors[5] = colors[6] = 0.1;
+            colors[3] = colors[7] = 1.0;
+        }
+        else
+        {
+            colors[0] = colors[1] = colors[2] = 0.1;
+            colors[4] = colors[5] = colors[6] = 0.1;
+            colors[3] = colors[7] = 1.0;
+        }
+    }
     else if(self.tint == FPPopoverLightGrayTint)
     {
         if(_arrowDirection == FPPopoverArrowDirectionUp)
@@ -393,6 +407,10 @@
     {
         CGContextSetRGBFillColor(ctx, 0.1, 0.1, 0.1, 1.0);        
     }
+    else if(self.tint == FPPopoverFlatBlackTint)
+    {
+        CGContextSetRGBFillColor(ctx, 0.1, 0.1, 0.1, 1.0);
+    }
     else if(self.tint == FPPopoverLightGrayTint)
     {
         CGContextSetRGBFillColor(ctx, 0.3, 0.3, 0.3, 1.0);        
@@ -415,7 +433,12 @@
     //internal border
     CGContextBeginPath(ctx);
     CGContextAddPath(ctx, contentPath);
-    CGContextSetRGBStrokeColor(ctx, 0.7, 0.7, 0.7, 1.0);
+    if (self.tint == FPPopoverFlatBlackTint) {
+        CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 1.0);
+    }
+    else {
+        CGContextSetRGBStrokeColor(ctx, 0.7, 0.7, 0.7, 1.0);
+    }
     CGContextSetLineWidth(ctx, 1);
     CGContextSetLineCap(ctx,kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
@@ -426,7 +449,13 @@
     CGPathRef externalBorderPath = [self newContentPathWithBorderWidth:1.0 arrowDirection:_arrowDirection];
     CGContextBeginPath(ctx);
     CGContextAddPath(ctx, externalBorderPath);
-    CGContextSetRGBStrokeColor(ctx, 0.4, 0.4, 0.4, 1.0);
+    if (self.tint == FPPopoverFlatBlackTint) {
+        CGContextSetRGBStrokeColor(ctx, 0.0, 0.0, 0.0, 0.8);
+    }
+    else {
+        CGContextSetRGBStrokeColor(ctx, 0.4, 0.4, 0.4, 1.0);
+    }
+
     CGContextSetLineWidth(ctx, 1);
     CGContextSetLineCap(ctx,kCGLineCapRound);
     CGContextSetLineJoin(ctx, kCGLineJoinRound);
@@ -434,7 +463,7 @@
     CGPathRelease(externalBorderPath);
 
     //3D border of the content view
-    if(self.draw3dBorder) {
+    if(self.draw3dBorder && !self.tint == FPPopoverFlatBlackTint) {
         CGRect cvRect = _contentView.frame;
         //firstLine
         CGContextSetRGBStrokeColor(ctx, 0.7, 0.7, 0.7, 1.0);
