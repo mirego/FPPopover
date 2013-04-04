@@ -10,8 +10,8 @@
 #import "FPPopoverView.h"
 #import "ARCMacros.h"
 
-#define FP_POPOVER_ARROW_HEIGHT 20.0
-#define FP_POPOVER_ARROW_BASE 20.0
+#define FP_POPOVER_ARROW_HEIGHT 16.0
+#define FP_POPOVER_ARROW_BASE 25.0
 #define FP_POPOVER_RADIUS 10.0
 
 //iVars
@@ -288,18 +288,7 @@
     }
     else if(self.tint == FPPopoverFlatBlackTint)
     {
-        if(_arrowDirection == FPPopoverArrowDirectionUp)
-        {
-            colors[0] = colors[1] = colors[2] = 0.1;
-            colors[4] = colors[5] = colors[6] = 0.1;
-            colors[3] = colors[7] = 1.0;
-        }
-        else
-        {
-            colors[0] = colors[1] = colors[2] = 0.1;
-            colors[4] = colors[5] = colors[6] = 0.1;
-            colors[3] = colors[7] = 1.0;
-        }
+
     }
     else if(self.tint == FPPopoverLightGrayTint)
     {
@@ -409,7 +398,7 @@
     }
     else if(self.tint == FPPopoverFlatBlackTint)
     {
-        CGContextSetRGBFillColor(ctx, 0.1, 0.1, 0.1, 1.0);
+        CGContextSetRGBFillColor(ctx, 58.0f/255.0f, 58.0f/255.0f, 58.0f/255.0f, 1.0);
     }
     else if(self.tint == FPPopoverLightGrayTint)
     {
@@ -428,8 +417,13 @@
         CGContextSetRGBFillColor(ctx, 1, 1, 1, 1.0);
     }
 
-    
-    CGContextFillRect(ctx, CGRectMake(0, end.y, self.bounds.size.width, self.bounds.size.height-end.y));
+    if (self.tint == FPPopoverFlatBlackTint) {
+        CGContextFillRect(ctx, CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height));
+    }
+    else {
+        CGContextFillRect(ctx, CGRectMake(0, end.y, self.bounds.size.width, self.bounds.size.height-end.y));
+    }
+
     //internal border
     CGContextBeginPath(ctx);
     CGContextAddPath(ctx, contentPath);
