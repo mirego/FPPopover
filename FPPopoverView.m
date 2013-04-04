@@ -32,6 +32,7 @@
 
 @implementation FPPopoverView
 @synthesize title;
+@synthesize titleLabel = _titleLabel;
 @synthesize relativeOrigin;
 @synthesize tint = _tint;
 @synthesize draw3dBorder = _draw3dBorder;

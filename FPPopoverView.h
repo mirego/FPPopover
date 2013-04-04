@@ -46,6 +46,7 @@ typedef enum {
 @interface FPPopoverView : UIView
 
 @property(nonatomic,strong) NSString *title;
+@property(nonatomic,readonly) UILabel *titleLabel;
 @property(nonatomic,assign) CGPoint relativeOrigin;
 @property(nonatomic,assign) FPPopoverTint tint;
 @property(nonatomic,assign) BOOL draw3dBorder;
