@@ -61,10 +61,10 @@
 				   delegate:(id<FPPopoverControllerDelegate>)delegate;
 
 /** @brief Presenting the popover from a specified view **/
--(void)presentPopoverFromView:(UIView*)fromView;
+- (void)presentPopoverFromView:(UIView *)fromView completion:() completion;
 
 /** @brief Presenting the popover from a specified point **/
--(void)presentPopoverFromPoint:(CGPoint)fromPoint;
+- (void)presentPopoverFromPoint:(CGPoint)fromPoint completion:(void (^)())completion;
 
 /** @brief Dismiss the popover **/
 -(void)dismissPopoverAnimated:(BOOL)animated;

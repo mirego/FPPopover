@@ -82,6 +82,8 @@
 
 -(void)dealloc
 {
+    [_touchView setTouchedInsideBlock:nil];
+    [_touchView setTouchedOutsideBlock:nil];
     [self removeObservers];
     if(_shadowColor) CGColorRelease(_shadowColor);
     
@@ -245,7 +247,7 @@
     //return UIDeviceOrientationIsPortrait(_deviceOrientation) ? _parentView.frame.size.height : _parentView.frame.size.width;
 }
 
--(void)presentPopoverFromPoint:(CGPoint)fromPoint
+- (void)presentPopoverFromPoint:(CGPoint)fromPoint completion:(void (^)())completion
 {
     self.origin = fromPoint;
     
@@ -285,6 +287,10 @@
     [UIView animateWithDuration:0.2 animations:^{
         
         self.view.alpha = self.alpha;
+    } completion:^(BOOL finished) {
+        if (completion) {
+            completion();
+        }
     }];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"FPNewPopoverPresented" object:self];
@@ -329,11 +335,11 @@
     return p;
 }
 
--(void)presentPopoverFromView:(UIView*)fromView
+- (void)presentPopoverFromView:(UIView *)fromView completion:(void (^)()) completion
 {
     SAFE_ARC_RELEASE(_fromView);
     _fromView = SAFE_ARC_RETAIN(fromView);
-    [self presentPopoverFromPoint:[self originFromView:_fromView]];
+    [self presentPopoverFromPoint:[self originFromView:_fromView] completion:completion ];
 }
 
 -(void)dismissPopover

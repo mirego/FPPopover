@@ -43,8 +43,8 @@
 
     SAFE_ARC_RELEASE(_titleLabel);
     SAFE_ARC_SUPER_DEALLOC();
-    [_customTintColor release];
-    [_customTintBoderColor release];
+    SAFE_ARC_RELEASE(_customTintColor);
+    SAFE_ARC_RELEASE(_customTintBoderColor);
 }
 
 - (id)initWithFrame:(CGRect)frame
