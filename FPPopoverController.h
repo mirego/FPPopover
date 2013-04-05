@@ -52,6 +52,8 @@
 /** @brief Popover border, default is YES **/
 @property(nonatomic, assign) BOOL border;
 
+@property (nonatomic, strong) UIColor *customTintColor;
+@property (nonatomic, strong) UIColor *customTintBorderColor;
 /** @brief Initialize the popover with the content view controller
  **/
 -(id)initWithViewController:(UIViewController*)viewController;

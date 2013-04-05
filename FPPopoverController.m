@@ -172,6 +172,30 @@
     return _contentView.tint;
 }
 
+- (UIColor *)customTintColor
+{
+    return _contentView.customTintColor;
+}
+
+- (void)setCustomTintColor:(UIColor *)customTintColor
+{
+    _contentView.customTintColor = customTintColor;
+    [_contentView setNeedsDisplay];
+}
+
+- (UIColor *)customTintBorderColor
+{
+    return _contentView.customTintBoderColor;
+}
+
+- (void)setCustomTintBorderColor:(UIColor *)customTintBorderColor
+{
+    _contentView.customTintBoderColor = customTintBorderColor;
+    [_contentView setNeedsDisplay];
+}
+
+
+
 #pragma mark - View lifecycle
 
 -(void)setupView
@@ -253,7 +277,7 @@
     {
         [self dismissPopoverAnimated:NO];
     }
-    
+
     
     
     [self setupView];

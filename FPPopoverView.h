@@ -36,7 +36,7 @@ typedef enum FPPopoverArrowDirection: NSUInteger {
 typedef enum {
     FPPopoverWhiteTint,
     FPPopoverBlackTint,
-    FPPopoverFlatBlackTint,
+    FPPopoverCustomFlatTint,
     FPPopoverLightGrayTint,
     FPPopoverGreenTint,
     FPPopoverRedTint,
@@ -54,6 +54,8 @@ typedef enum {
 @property(nonatomic,assign) CGFloat margin;
 @property(nonatomic,strong) UIButton * rightButton;
 
+@property (nonatomic, retain) UIColor *customTintColor;
+@property (nonatomic, retain) UIColor *customTintBoderColor;
 -(void)setArrowDirection:(FPPopoverArrowDirection)arrowDirection;
 -(FPPopoverArrowDirection)arrowDirection;
 
