@@ -7,6 +7,7 @@
 //  https://github.com/50pixels/FPPopover
 
 
+#import <CoreGraphics/CoreGraphics.h>
 #import "FPPopoverView.h"
 #import "ARCMacros.h"
 
@@ -70,6 +71,7 @@
         
         //border
         self.border = YES;
+        self.margin = 2.0;
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _titleLabel.backgroundColor = [UIColor clearColor];
@@ -354,6 +356,12 @@
 }
 
 
+- (void)setRightButton:(UIButton *)rightButton
+{
+    [_rightButton removeFromSuperview];
+    _rightButton = rightButton;
+    [self addSubview:_rightButton];
+}
 
 - (void)drawRect:(CGRect)rect
 {
@@ -367,7 +375,7 @@
     CGContextSaveGState(ctx);
     
     //content fill
-    CGPathRef contentPath = [self newContentPathWithBorderWidth:2.0 arrowDirection:_arrowDirection];
+    CGPathRef contentPath = [self newContentPathWithBorderWidth:self.margin arrowDirection:_arrowDirection];
     
     
     CGContextAddPath(ctx, contentPath);
@@ -480,9 +488,9 @@
 	
     if(_arrowDirection == FPPopoverArrowDirectionUp)
     {
-        contentRect.origin = CGPointMake(10, 60);  
-        contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-70);
-        _titleLabel.frame = CGRectMake(10, 30, self.bounds.size.width-20, 20);    
+        contentRect.origin = CGPointMake(10, 70);
+        contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height- 80);
+        _titleLabel.frame = CGRectMake(10, 35, self.bounds.size.width-25, 20);
 		if (self.title==nil || self.title.length==0) {
 			contentRect.origin = CGPointMake(10, 30);
 			contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-40);
@@ -490,11 +498,11 @@
     }
     else if(_arrowDirection == FPPopoverArrowDirectionDown)
     {
-        contentRect.origin = CGPointMake(10, 40);        
-        contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-70);
-        _titleLabel.frame = CGRectMake(10, 10, self.bounds.size.width-20, 20);
+        contentRect.origin = CGPointMake(10, 50);
+        contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height - 40);
+        _titleLabel.frame = CGRectMake(10, 20, self.bounds.size.width-25, 20);
 		if (self.title==nil || self.title.length==0) {
-			contentRect.origin = CGPointMake(10, 10); 
+			contentRect.origin = CGPointMake(10, 10);
 			contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-40);
 		}
     }
@@ -502,9 +510,9 @@
     
     else if(_arrowDirection == FPPopoverArrowDirectionRight)
     {
-        contentRect.origin = CGPointMake(10, 40);        
-        contentRect.size = CGSizeMake(self.bounds.size.width-40, self.bounds.size.height-50);
-        _titleLabel.frame = CGRectMake(10, 10, self.bounds.size.width-20, 20);    
+        contentRect.origin = CGPointMake(10, 50);
+        contentRect.size = CGSizeMake(self.bounds.size.width-40, self.bounds.size.height-60);
+        _titleLabel.frame = CGRectMake(10, 20, self.bounds.size.width-25, 20);
 		if (self.title==nil || self.title.length==0) {
 			 contentRect.origin = CGPointMake(10, 10);
 			contentRect.size = CGSizeMake(self.bounds.size.width-40, self.bounds.size.height-20);
@@ -513,9 +521,9 @@
 
     else if(_arrowDirection == FPPopoverArrowDirectionLeft)
     {
-        contentRect.origin = CGPointMake(10 + FP_POPOVER_ARROW_HEIGHT, 40);        
-        contentRect.size = CGSizeMake(self.bounds.size.width-40, self.bounds.size.height-50);
-        _titleLabel.frame = CGRectMake(10, 10, self.bounds.size.width-20, 20); 
+        contentRect.origin = CGPointMake(10 + FP_POPOVER_ARROW_HEIGHT, 50);
+        contentRect.size = CGSizeMake(self.bounds.size.width-40, self.bounds.size.height-60);
+        _titleLabel.frame = CGRectMake(10, 20, self.bounds.size.width-25, 20);
 		if (self.title==nil || self.title.length==0) {
 			contentRect.origin = CGPointMake(10+ FP_POPOVER_ARROW_HEIGHT, 10);
 			contentRect.size = CGSizeMake(self.bounds.size.width-40, self.bounds.size.height-20);
@@ -524,18 +532,24 @@
     
     else if(_arrowDirection == FPPopoverNoArrow)
     {
-        contentRect.origin = CGPointMake(10, 40);
-        contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-50);
-        _titleLabel.frame = CGRectMake(10, 10, self.bounds.size.width-20, 20);
+        contentRect.origin = CGPointMake(10, 50);
+        contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-60);
+        _titleLabel.frame = CGRectMake(10, 20, self.bounds.size.width-25, 20);
 		if (self.title==nil || self.title.length==0) {
 			contentRect.origin = CGPointMake(10, 30);
 			contentRect.size = CGSizeMake(self.bounds.size.width-20, self.bounds.size.height-40);
 		}
     }
 
-    _contentView.frame = contentRect;
+
+    _contentView.frame = CGRectInset(contentRect, self.margin, self.margin);
+    CGRect titleFrame =_titleLabel.frame;
+    titleFrame.origin.y += self.margin;
+    _titleLabel.frame = titleFrame;
     _titleLabel.text = self.title;    
-    
+    _rightButton.frame = CGRectMake(CGRectGetMaxX(_contentView.frame) - _rightButton.frame.size.width, CGRectGetMidY(titleFrame) - CGRectGetHeight(
+            _rightButton.frame) * 0.5f, CGRectGetWidth(_rightButton.frame),
+            CGRectGetHeight(_rightButton.frame));
 }
 
 

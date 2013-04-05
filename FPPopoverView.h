@@ -51,6 +51,8 @@ typedef enum {
 @property(nonatomic,assign) FPPopoverTint tint;
 @property(nonatomic,assign) BOOL draw3dBorder;
 @property(nonatomic,assign) BOOL border; //default YES
+@property(nonatomic,assign) CGFloat margin;
+@property(nonatomic,strong) UIButton * rightButton;
 
 -(void)setArrowDirection:(FPPopoverArrowDirection)arrowDirection;
 -(FPPopoverArrowDirection)arrowDirection;
