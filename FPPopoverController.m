@@ -331,6 +331,11 @@
         p.x = fromView.frame.origin.x;
         p.y = fromView.frame.origin.y + fromView.frame.size.height/2.0;
     }
+    else
+    {
+        p.x = fromView.frame.origin.x + fromView.frame.size.width/2.0;
+        p.y = fromView.frame.origin.y + fromView.frame.size.height;
+    }
 
     return p;
 }
@@ -398,20 +403,12 @@
 	if ([_viewController respondsToSelector:@selector(shouldAutorotateToInterfaceOrientation:)] &&
         [[[UIDevice currentDevice] systemVersion] floatValue] < 6.0)
 	{
-		UIInterfaceOrientation interfaceOrientation;
 		switch (_deviceOrientation)
 		{
 			case UIDeviceOrientationLandscapeLeft:
-				interfaceOrientation = UIInterfaceOrientationLandscapeLeft;
-				break;
 			case UIDeviceOrientationLandscapeRight:
-				interfaceOrientation = UIInterfaceOrientationLandscapeRight;
-				break;
 			case UIDeviceOrientationPortrait:
-				interfaceOrientation = UIInterfaceOrientationPortrait;
-				break;
 			case UIDeviceOrientationPortraitUpsideDown:
-				interfaceOrientation = UIInterfaceOrientationPortraitUpsideDown;
 				break;
 			default:
 				return;	// just ignore face up / face down, etc.
@@ -457,14 +454,10 @@
     // thanks @Niculcea
     // If we presentFromPoint with _fromView nil will calculate based on self.orgin with 2x2 size.
     // Fix for presentFromPoint from avolovoy's FPPopover fork
-    float width = 2.0f;
-    float height = 2.0f;
     CGPoint p = CGPointMake(self.origin.x, self.origin.y);
     
     if (v != nil) {
         p = [v.superview convertPoint:v.frame.origin toView:self.view];
-        width = v.frame.size.width;
-        height = v.frame.size.height;
     }
     
     
