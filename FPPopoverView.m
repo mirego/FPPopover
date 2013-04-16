@@ -40,11 +40,10 @@
 #ifdef FP_DEBUG
     NSLog(@"FPPopoverView dealloc");
 #endif
-
     SAFE_ARC_RELEASE(_titleLabel);
-    SAFE_ARC_SUPER_DEALLOC();
     SAFE_ARC_RELEASE(_customTintColor);
     SAFE_ARC_RELEASE(_customTintBoderColor);
+	SAFE_ARC_SUPER_DEALLOC();
 }
 
 - (id)initWithFrame:(CGRect)frame
