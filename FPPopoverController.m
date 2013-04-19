@@ -57,12 +57,10 @@
 
 -(void)addObservers
 {
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];   
-    
     [[NSNotificationCenter defaultCenter] 
      addObserver:self 
      selector:@selector(deviceOrientationDidChange:) 
-     name:@"UIDeviceOrientationDidChangeNotification" 
+     name:UIApplicationDidChangeStatusBarOrientationNotification
      object:nil]; 
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -74,7 +72,6 @@
 
 -(void)removeObservers
 {
-    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_viewController removeObserver:self forKeyPath:@"title"];
 }
