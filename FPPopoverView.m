@@ -105,6 +105,13 @@
     [self setupViews];
 }
 
+- (void)setLeftButton:(UIButton *)leftButton
+{
+    [_leftButton removeFromSuperview];
+    _leftButton = leftButton;
+    [self addSubview:_leftButton];
+}
+
 - (void)setBorder:(BOOL)border
 {
     _border = border;
@@ -535,9 +542,8 @@
     titleFrame.origin.y += self.margin -2;
     _titleLabel.frame = titleFrame;
     _titleLabel.text = self.title;
-    _rightButton.frame = CGRectMake(CGRectGetMaxX(_contentView.frame) - _rightButton.frame.size.width, CGRectGetMidY(titleFrame) - CGRectGetHeight(
-            _rightButton.frame) * 0.5f, CGRectGetWidth(_rightButton.frame),
-            CGRectGetHeight(_rightButton.frame));
+    _leftButton.frame = CGRectMake(CGRectGetMinX(_contentView.frame), CGRectGetMidY(titleFrame) - CGRectGetHeight(_leftButton.frame) * 0.5f, CGRectGetWidth(_leftButton.frame), CGRectGetHeight(_leftButton.frame));
+    _rightButton.frame = CGRectMake(CGRectGetMaxX(_contentView.frame) - _rightButton.frame.size.width, CGRectGetMidY(titleFrame) - CGRectGetHeight(_rightButton.frame) * 0.5f, CGRectGetWidth(_rightButton.frame), CGRectGetHeight(_rightButton.frame));
 }
 
 - (void)layoutSubviews

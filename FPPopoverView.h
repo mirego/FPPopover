@@ -53,6 +53,7 @@ typedef enum {
 @property(nonatomic,assign) BOOL border; //default YES
 @property(nonatomic,assign) CGFloat margin;
 @property(nonatomic,strong) UIButton * rightButton;
+@property(nonatomic,strong) UIButton * leftButton;
 
 @property (nonatomic, retain) UIColor *customTintColor;
 @property (nonatomic, retain) UIColor *customTintBoderColor;
